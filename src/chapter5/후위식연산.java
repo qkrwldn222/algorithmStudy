@@ -32,20 +32,17 @@ import java.util.Stack;
  */
 public class 후위식연산 {
     public int solution(String str){
-
         Stack<Integer> stack = new Stack<>();
         for (char x : str.toCharArray()){
-            if (x == '+'){
-                stack.push(stack.pop()+stack.pop());
-            }else if(x == '*'){
-                stack.push(stack.pop()*stack.pop());
-            }else if(x == '-'){
-                stack.push(stack.pop()-stack.pop());
-            }else if (x == '/'){
-                stack.push(stack.pop()/stack.pop());
-            }else {
-                stack.push(x-48);
-            }
+          if (Character.isDigit(x)) stack.push(x-48);
+          else{
+              int rt = stack.pop();
+              int lt = stack.pop();
+              if (x == '+') stack.push(lt + rt);
+              if (x == '-') stack.push(lt - rt);
+              if (x == '*') stack.push(lt * rt);
+              if (x == '/') stack.push(lt / rt);
+          }
         }
         return stack.pop();
     }
