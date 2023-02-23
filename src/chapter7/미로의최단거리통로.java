@@ -50,7 +50,7 @@ class Point{
 public class 미로의최단거리통로 {
     int[] dy = {1,-1,0,0};
     int[] dx = {0,0,1,-1};
-    static int[][] arr = new int[8][8];
+    static int[][] arr;
     static int[][] dis = new int[8][8];
     static int answer = -1;
 
@@ -80,14 +80,40 @@ public class 미로의최단거리통로 {
             for (int i = 0; i < 4; i++){
                 int nx = p.x + dx[i];
                 int ny = p.y + dy[i];
-                if (nx >=1 && nx <= 7 && ny >=1 && ny <= 7 && arr[nx][ny]==0){
+                if (nx >=1 && nx <=7 && ny >=1 && ny <=7 && dis[nx][ny] == 0){
                     arr[nx][ny] = 1;
                     q.offer(new Point(nx,ny));
-                    dis[nx][ny] = dis[p.x][p.y]+1;
+                    dis[nx][ny] = dis[p.x][p.y] + 1;
                 }
             }
         }
     }
+    public void DFS2(int x, int y,int sum){
+        System.out.println("x : " + x + ", y : " + y + ", sum : " + sum);
+
+        if (answer != -1 && sum > answer) return ;
+        if (x == 7 && y == 7){
+            System.out.println("Sum : " + sum);
+            if(answer == -1) {
+                answer = sum;
+            }else{
+                answer = Integer.min(answer,sum);
+            }
+            return;
+        }
+        for (int i = 0; i < 4; i++){
+            int nx = x + dx[i];
+            int ny = y + dy[i];
+
+            if(nx >=1 && nx<=7 && ny >=1 && ny<=7 && arr[nx][ny] == 0){
+                System.out.println(arr[nx][ny]);
+                arr[nx][ny] = 1;
+                DFS2(nx,ny,sum+1);
+                arr[nx][ny] = 0;
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         arr = new int[8][8];
@@ -96,11 +122,11 @@ public class 미로의최단거리통로 {
                 arr[i][j] = sc.nextInt();
             }
         }
-//        arr[1][1]=1;
-//        new 미로의최단거리통로().DFS(1,1,0);
-        new 미로의최단거리통로().BFS(1,1);
-        if (dis[7][7] == 0) System.out.println(-1);
-        else System.out.println(dis[7][7]);
-//        System.out.println(answer);
+        arr[1][1]=1;
+        new 미로의최단거리통로().DFS2(1,1,0);
+//        new 미로의최단거리통로().BFS(1,1);
+//        if (dis[7][7] == 0) System.out.println(-1);
+ //       else System.out.println(dis[7][7]);
+        System.out.println(answer);
     }
 }

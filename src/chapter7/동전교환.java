@@ -33,27 +33,26 @@ import java.util.Scanner;
 
  */
 public class 동전교환 {
-    static int n,answer = Integer.MAX_VALUE,m;
-    public void DFS(int l,int sum,Integer[] arr){
-        if (sum > m) return ;
-        if(l >= answer ) return;
+    static int m, answer = Integer.MAX_VALUE, depth;
+
+    public void DFS(int depth,int sum,int[] arr){
+        if (sum > m) return;
+        if(depth >= answer) return;
 
         if (sum == m){
-            answer = Math.min(answer,l);
-        }else{
-            for (int i = 0; i < i; i++) {
-                DFS(l + 1, sum + arr[i], arr);
-            }
+            answer = Integer.min(answer,depth);
+        }
+        for (int i = 0; i < arr.length; i++){
+            DFS(depth+1,sum + arr[i],arr);
         }
     }
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        n = sc.nextInt();
-        Integer[] arr = new Integer[n];
+        int n = sc.nextInt();
+        int[] arr = new int[n];
         for (int i = 0; i < n; i++){
-            sc.nextInt();
+            arr[i] = sc.nextInt();
         }
-        Arrays.sort(arr,Collections.reverseOrder());
         m = sc.nextInt();
         new 동전교환().DFS(0,0,arr);
         System.out.println(answer);
