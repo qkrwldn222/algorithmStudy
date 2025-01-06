@@ -27,7 +27,7 @@ public class KakaoInternShip2021_3 {
                 stack.pop();
             }
             if (a[0] == "C"){
-                stack.push();
+//                stack.push();
             }
             if (a[0] == "U"){
 
